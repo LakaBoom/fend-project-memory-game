@@ -54,11 +54,23 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-//generate the cards that been shuffled.
-generateCards(shuffle(cards));
-
 let openCards = [];
 let finalMove = 0;
+
+function initilization(){
+  var deck = document.querySelector('.deck');
+  deck.innerHTML='';
+  document.querySelector('.moves').innerText='0';
+  document.querySelector('.stars').innerHTML=`<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
+  openCards = [];
+  finalMove = 0;
+  generateCards(shuffle(cards));
+}
+
+let restartButton = document.querySelector('.restart');
+restartButton.addEventListener('click',function(){
+  initilization();
+});
 
 //fliping the cards
 let wholeDeck = document.querySelector('.deck');
@@ -126,5 +138,6 @@ function starScore(moveNo){
     stars.innerHTML = '';
     stars.innerHTML = noStarTemplate;
   }
-
 }
+
+initilization();
