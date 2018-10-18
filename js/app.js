@@ -57,22 +57,30 @@ function shuffle(array) {
 //generate the cards that been shuffled.
 generateCards(shuffle(cards));
 
+let openCards = [];
+let finalMove = 0;
+
 //fliping the cards
 let wholeDeck = document.querySelector('.deck');
-let openCards = [];
+
 wholeDeck.addEventListener('click',function(event){
   if(event.target.classList.contains('card')){
     var cardClicked = event.target;
+    let moveEvent = document.querySelector('.moves'); // read the movement.
       //flip the card only it hasn't been showned and open situation.
     if(!cardClicked.classList.contains('open') && !cardClicked.classList.contains('show')){
         cardClicked.classList.add('open','show');
         openCards.push(cardClicked);
       }
-    console.log(openCards.length);
+
     if(openCards.length === 2){
+      //no matter match or not, increase one movement
+      moveEvent.innerText ++;
+      let moveNo = moveEvent.innerText;
+      starScore(moveNo);
+
       if(openCards[0].id === openCards[1].id){
-        openCards[0].classList.add('match');
-        openCards[1].classList.add('match');
+        matchSituation(openCards);
       }
 
       setTimeout(function(){
@@ -80,7 +88,43 @@ wholeDeck.addEventListener('click',function(event){
           element.classList.remove('open','show');
         });
         openCards=[];
-      },500);
+      },400);
     }
   }
 });
+
+
+function matchSituation(openCards){
+
+  openCards[0].classList.add('match');
+  openCards[1].classList.add('match');
+  let matches = document.getElementsByClassName('match');
+  let moveNo = document.querySelector('.moves').innerText;
+
+  // find all math cards.
+  console.log(`the matches are ${matches.length}`);
+  if(matches.length === 16){
+    console.log(`the total movement is ${moveNo}`);
+     // display a new page.
+
+  }
+}
+
+function starScore(moveNo){
+  let stars = document.querySelector('.stars');
+  var twoStarsTemplate = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li>`;
+  var oneStarTemplate = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li>`;
+  var noStarTemplate = `<li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li><li><i class="fa fa-star-o"></i></li>`;
+
+  if(moveNo <= 15 && moveNo > 10){
+    stars.innerHTML = '';
+    stars.innerHTML = twoStarsTemplate;
+  }else if(moveNo <= 20 && moveNo > 15){
+    stars.innerHTML = '';
+    stars.innerHTML = oneStarTemplate;
+  }else if(moveNo > 20){
+    stars.innerHTML = '';
+    stars.innerHTML = noStarTemplate;
+  }
+
+}
