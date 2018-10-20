@@ -2,6 +2,7 @@
 let openCards = [];
 let finalMove = 0;
 let starCount = 0;
+let timer1 = 0; // store set interval time
 
 //Create a list that holds all of your cards
  let cards = ['fa-diamond','fa-diamond',
@@ -48,11 +49,18 @@ function initilization(){
   }
   document.querySelector('.congratBox').style.display='none';
   document.querySelector('.moves').innerText='0';
+  clearInterval(timer1);
+  if(document.querySelector('.timer').classList.contains('hurry')){
+    document.querySelector('.timer').classList.remove('hurry');
+  }
+  document.querySelector('.timer').style.color = 'black';
+  document.querySelector('.timer').innerHTML = `03:00`;
   document.querySelector('.stars').innerHTML=`<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
   openCards = [];
   finalMove = 0;
   starCount = 0;
   generateCards(shuffle(cards));
+  countDownTimer();
 }
 
 let restartButton = document.querySelector('.restart');
@@ -86,12 +94,11 @@ wholeDeck.addEventListener('click',function(event){
       }else{
         openCards.forEach(function(element){
         element.classList.add('wrong');
-        element.classList.add('wrong');
         });
       }
 
       //flip wrong card back
-      setTimeout(function(){
+      var timer2 = setTimeout(function(){
         openCards.forEach(function(element){
           element.classList.remove('open','show');
           if(element.classList.contains('wrong')){
@@ -147,20 +154,40 @@ function congratulations(){
   newDiv.style.display='inline';
   newDiv.innerHTML='';
   var template = `<section class='imageSection'>
-        <img class='checkbox rubberBand' src="img/checkbox-icon.png" alt="checkbox"/>
+        <img class='checkbox' src="img/success.png" alt="checkbox"/>
         </section>
         <section class='textSection'>
         <p class='congrat'> Congratulations! You Won! </p>
         <p class='rating'> With ${finalMove} Moves and ${starCount} Stars.</p>
-        <p class='cheerWords rubberBand'> Woooooo! </p>
+        <p class='cheerWords'> Woooooo! </p>
         </section>`;
   newDiv.innerHTML = template;
+  buttonMaker();
+}
 
+function buttonMaker(){
   var btn = document.createElement('button');
   var t= document.createTextNode('Play Again!');
   btn.className = 'playAgain';
   btn.append(t);
   newDiv.appendChild(btn);
+}
+
+function fail(){
+  document.querySelector('.container').style.display='none';// hide everything have before.
+  var newDiv = document.querySelector('.congratBox');
+
+  newDiv.style.display='inline';
+  newDiv.innerHTML='';
+  var template = `<section class='imageSection'>
+        <img class='checkbox' style="animation-name: tada;"src="img/error.png" alt="checkbox"/>
+        </section>
+        <section class='textSection'>
+        <p class='congrat'> Failed! You lost! </p>
+        <p class='cheerWords'> Please Try Again! </p>
+        </section>`;
+  newDiv.innerHTML = template;
+  buttonMaker();
 }
 
 //click play again button ,everything call initilization function
@@ -173,5 +200,30 @@ newDiv.addEventListener('click', function(event){
   }
 });
 
+function countDownTimer(){
+  var startTime = new Date().getTime() + 181000;
+  document.querySelector('.timer').innerHTML = '03:00';
+  timer1 = setInterval(function(){
+    var now = new Date().getTime();
+    var distance = startTime - now;
+    var minutes = Math.floor((distance / (1000 * 60)));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  //  var miliSeconds = Math.floor((distance % (1000 * 60)) % 1000);
+    seconds < 10? document.querySelector('.timer').innerHTML = `0${minutes}:0${seconds}`:document.querySelector('.timer').innerHTML = `0${minutes}:${seconds}`;
+    if(minutes === 0 && seconds <= 30){
+      document.querySelector('.timer').style.color = 'red';
+      if(minutes === 0 && seconds <= 10){
+        document.querySelector('.timer').classList.add('hurry');
+      }
+    }
+    if(distance <= 0){
+      clearInterval(timer1);
+      document.querySelector('.timer').classList.remove('hurry');
+      fail();
+    }
+  },1000);
+}
+
 initilization();
 //congratulations();
+//fail();

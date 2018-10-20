@@ -33,6 +33,12 @@ h1 {
     font-weight: 300;
 }
 
+.timer{
+
+  font-size: 1.5em;
+  font-weight: 300;
+}
+
 /*
  * Styles for the deck of cards
  */
@@ -120,7 +126,7 @@ h1 {
 
 .congratBox{
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%) ;
@@ -200,6 +206,24 @@ img.checkbox{
   }
 }
 
+@keyframes flash {
+  from,
+  50%,
+  to {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
+}
+
+.hurry{
+  animation-name: flash;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
 .textSection{
   text-align: center;
 }
@@ -210,7 +234,7 @@ img.checkbox{
   font-size: 2em;
 }
 .playAgain{
-  background-color: rgba(61, 147, 83, 0.8);
+  background-color: rgb(56, 168, 132);
   border-radius: 12px;
   border:none;
   cursor:pointer;
@@ -223,6 +247,6 @@ img.checkbox{
   margin: auto;
 }
 .playAgain:hover{
-  background-color: rgba(61, 147, 83, 1);
+  background-color:rgb(46, 132, 104);
   color:white;
 }
