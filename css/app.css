@@ -79,8 +79,18 @@ h1 {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    animation-name: rubberBand;
+    animation-duration: 1s;
+    position: relative;
 }
 
+.deck .card.wrong{
+    cursor:default;
+    background-color: #cc3c3c;
+    animation-name: tada;
+    animation-duration: 1s;
+    position: relative;
+}
 /*
  * Styles for the Score Panel
  */
@@ -106,4 +116,113 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.congratBox{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%) ;
+  width:400px;
+  z-index: 1;
+}
+
+
+img.checkbox{
+    object-fit: scale-down;
+    width:128px;
+    height:128px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    animation-name: rubberBand;
+    animation-duration: 1s;
+    position: relative;
+}
+
+@keyframes rubberBand {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+
+@keyframes tada {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  10%,
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+
+  40%,
+  60%,
+  80% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.textSection{
+  text-align: center;
+}
+.cheerWords{
+    margin-top:-1em;
+}
+.congrat{
+  font-size: 2em;
+}
+.playAgain{
+  background-color: rgba(61, 147, 83, 0.8);
+  border-radius: 12px;
+  border:none;
+  cursor:pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  padding:8px 15px;
+  box-shadow: 5px 5px 5px #999;
+  display: block;
+  margin: auto;
+}
+.playAgain:hover{
+  background-color: rgba(61, 147, 83, 1);
+  color:white;
 }
