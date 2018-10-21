@@ -3,6 +3,7 @@ let openCards = [];
 let finalMove = 0;
 let starCount = 0;
 let timer1 = 0; // store set interval time
+let usingTime = 0;
 
 //Create a list that holds all of your cards
  let cards = ['fa-diamond','fa-diamond',
@@ -54,11 +55,12 @@ function initilization(){
     document.querySelector('.timer').classList.remove('hurry');
   }
   document.querySelector('.timer').style.color = 'black';
-  document.querySelector('.timer').innerHTML = `03:00`;
+  document.querySelector('.timer').innerHTML = `01:00`;
   document.querySelector('.stars').innerHTML=`<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
   openCards = [];
   finalMove = 0;
   starCount = 0;
+  usingTime = 0;
   generateCards(shuffle(cards));
   countDownTimer();
 }
@@ -77,7 +79,7 @@ wholeDeck.addEventListener('click',function(event){
     let moveEvent = document.querySelector('.moves'); // read the movement.
 
     //flip the card only it hasn't been showned and open situation.
-    if(!cardClicked.classList.contains('open') && !cardClicked.classList.contains('show')){
+    if(openCards.length < 2 &&!cardClicked.classList.contains('open') && !cardClicked.classList.contains('show')){
         cardClicked.classList.add('open','show');
         openCards.push(cardClicked);
       }
@@ -97,16 +99,17 @@ wholeDeck.addEventListener('click',function(event){
         });
       }
 
-      //flip wrong card back
-      var timer2 = setTimeout(function(){
-        openCards.forEach(function(element){
+      //flip card back
+      var tempCards = openCards;
+      openCards=[];
+      var timer2 = setTimeout(function flipBack(){
+        tempCards.forEach(function(element){
           element.classList.remove('open','show');
           if(element.classList.contains('wrong')){
             element.classList.remove('wrong');
           }
         });
-        openCards=[];
-      },1000);
+      },750);
     }
   }
 });
@@ -148,6 +151,7 @@ function starScore(moveNo){
 
 //after find all matches
 function congratulations(){
+  clearInterval(timer1);
   document.querySelector('.container').style.display='none';// hide everything have before.
   var newDiv = document.querySelector('.congratBox');
 
@@ -158,7 +162,7 @@ function congratulations(){
         </section>
         <section class='textSection'>
         <p class='congrat'> Congratulations! You Won! </p>
-        <p class='rating'> With ${finalMove} Moves and ${starCount} Stars.</p>
+        <p class='rating'> With ${finalMove} Moves and ${starCount} Stars in ${Math.floor(usingTime%60)} seconds.</p>
         <p class='cheerWords'> Woooooo! </p>
         </section>`;
   newDiv.innerHTML = template;
@@ -183,7 +187,7 @@ function fail(){
         <img class='checkbox' style="animation-name: tada;"src="img/error.png" alt="checkbox"/>
         </section>
         <section class='textSection'>
-        <p class='congrat'> Failed! You lost! </p>
+        <p class='congrat'> Time Out! You lost! </p>
         <p class='cheerWords'> Please Try Again! </p>
         </section>`;
   newDiv.innerHTML = template;
@@ -201,22 +205,22 @@ newDiv.addEventListener('click', function(event){
 });
 
 function countDownTimer(){
-  var startTime = new Date().getTime() + 181000;
-  document.querySelector('.timer').innerHTML = '03:00';
+  var startTime = 60;
+  document.querySelector('.timer').innerHTML = '01:00';
   timer1 = setInterval(function(){
-    var now = new Date().getTime();
-    var distance = startTime - now;
-    var minutes = Math.floor((distance / (1000 * 60)));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  //  var miliSeconds = Math.floor((distance % (1000 * 60)) % 1000);
+    startTime--;
+    usingTime++;
+    var minutes = Math.floor(startTime / 60);
+    var seconds = Math.floor(startTime % 60);
+  //  var miliSeconds = Math.floor((startTime % (1000 * 60)) % 1000);
     seconds < 10? document.querySelector('.timer').innerHTML = `0${minutes}:0${seconds}`:document.querySelector('.timer').innerHTML = `0${minutes}:${seconds}`;
-    if(minutes === 0 && seconds <= 30){
+    if(minutes === 0 && seconds <= 10){
       document.querySelector('.timer').style.color = 'red';
-      if(minutes === 0 && seconds <= 10){
+      if(minutes === 0 && seconds <= 5){
         document.querySelector('.timer').classList.add('hurry');
       }
     }
-    if(distance <= 0){
+    if(startTime <= 0){
       clearInterval(timer1);
       document.querySelector('.timer').classList.remove('hurry');
       fail();

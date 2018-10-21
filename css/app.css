@@ -94,7 +94,7 @@ h1 {
     cursor:default;
     background-color: #cc3c3c;
     animation-name: tada;
-    animation-duration: 1s;
+    animation-duration: 0.75s;
     position: relative;
 }
 /*
@@ -147,6 +147,10 @@ img.checkbox{
     position: relative;
 }
 
+/*These animation effects are from http://daneden.github.io/animate.css
+ *Author Name: daneden
+ *Including rubberBand ,tada and flash
+*/
 @keyframes rubberBand {
   from {
     transform: scale3d(1, 1, 1);
@@ -176,7 +180,6 @@ img.checkbox{
     transform: scale3d(1, 1, 1);
   }
 }
-
 
 @keyframes tada {
   from {
@@ -229,6 +232,10 @@ img.checkbox{
 }
 .cheerWords{
     margin-top:-1em;
+    color:grey;
+}
+.rating{
+  color:grey;
 }
 .congrat{
   font-size: 2em;
