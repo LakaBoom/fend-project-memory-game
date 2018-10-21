@@ -152,74 +152,26 @@ img.checkbox{
  *Including rubberBand ,tada and flash
 */
 @keyframes rubberBand {
-  from {
-    transform: scale3d(1, 1, 1);
-  }
-
-  30% {
-    transform: scale3d(1.25, 0.75, 1);
-  }
-
-  40% {
-    transform: scale3d(0.75, 1.25, 1);
-  }
-
-  50% {
-    transform: scale3d(1.15, 0.85, 1);
-  }
-
-  65% {
-    transform: scale3d(0.95, 1.05, 1);
-  }
-
-  75% {
-    transform: scale3d(1.05, 0.95, 1);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-  }
+  0% {transform: scale3d(1, 1, 1);}
+  30% {transform: scale3d(1.25, 0.75, 1);}
+  40% {transform: scale3d(0.75, 1.25, 1);}
+  50% {transform: scale3d(1.15, 0.85, 1);}
+  65% {transform: scale3d(0.95, 1.05, 1);}
+  75% {transform: scale3d(1.05, 0.95, 1);}
+  100%{transform: scale3d(1, 1, 1);}
 }
 
 @keyframes tada {
-  from {
-    transform: scale3d(1, 1, 1);
-  }
-
-  10%,
-  20% {
-    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
-  }
-
-  30%,
-  50%,
-  70%,
-  90% {
-    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
-  }
-
-  40%,
-  60%,
-  80% {
-    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-  }
+  0%{ransform: scale3d(1, 1, 1);}
+  10%,20% {transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);}
+  30%,50%,70%,90% {transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);}
+  40%,60%,80% {transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);}
+  100%{transform: scale3d(1, 1, 1);}
 }
 
 @keyframes flash {
-  from,
-  50%,
-  to {
-    opacity: 1;
-  }
-
-  25%,
-  75% {
-    opacity: 0;
-  }
+  0%,50%,100% {opacity: 1;}
+  25%,75% {opacity: 0;}
 }
 
 .hurry{
