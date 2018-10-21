@@ -74,7 +74,7 @@ restartButton.addEventListener('click',function(){
 let wholeDeck = document.querySelector('.deck');
 
 wholeDeck.addEventListener('click',function(event){
-  if(event.target.classList.contains('card')){
+  if(event.target.classList.contains('card') && !event.target.classList.contains('match')){
     var cardClicked = event.target;
     let moveEvent = document.querySelector('.moves'); // read the movement.
 
